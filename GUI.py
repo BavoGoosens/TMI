@@ -21,7 +21,7 @@ class GUI(object):
     def process(self,path):
         count = 0
         cirkels = []
-        for line in fileinput.input(files = ('c:/Users/Bavo/Dropbox/Projecten/TMI 1/testfile1.txt')):
+        for line in fileinput.input(files = (path)):
             if count == 0:
                 algo = line[0]
             else:

@@ -11,6 +11,7 @@ class Position(object):
     def getY(self):
         return self.y
 
+    
     def to_string( self ):
         return "(" + str(self.getX()) + ", " + str(self.getY()) + ")"
 

@@ -7,30 +7,31 @@ class GUI(object):
     """description of class"""
 
     def __init__(self,master):
-        frame = Frame(master)
+        frame = Frame(master,width=500, height=500)
         frame.pack()
-        self.canvas = Canvas(frame)
-        self.canvas.pack(side= LEFT)
         self.entry = Entry(frame)
-        self.entry.pack(side=LEFT) 
-        self.button = Button(frame, name="go", text="GO", fg="red", command=self.process(self.entry.get))
-        self.button.pack(side=RIGHT) 
+        self.entry.bind("<return>", self.process())
+        self.entry.pack() 
+        self.canvas = Canvas(frame)
+        self.canvas.pack()
         
-      
+    
 
-    def process(self,path):
+    def process(self):
+        path = self.entry.get()
         count = 0
         cirkels = []
-        for line in fileinput.input(files = (path)):
-            if count == 0:
-                algo = line[0]
-            else:
-                if len(line) > 2:
-                    cir = line.split( ' ' , 2)
-                    pos = Position( float(cir[0]), float(cir[1]))
-                    cir = Circle( pos , float(cir [2]))
-                    print(cir.to_string())
-                    cirkels.append(cir)
-        count = count + 1 
+        if len(path) > 4 :
+            for line in fileinput.input(files = (path)):
+                if count == 0:
+                     algo = line[0]
+                else:
+                    if len(line) > 2:
+                        cir = line.split( ' ' , 2)
+                        pos = Position( float(cir[0]), float(cir[1]))
+                        cir = Circle( pos , float(cir [2]))
+                        print(cir.to_string())
+                        cirkels.append(cir)
+            count = count + 1 
 
 

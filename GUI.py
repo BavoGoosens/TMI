@@ -18,8 +18,6 @@ class GUI(object):
         Button(master, textvariable=self.buttontext, command=self.clicked1).pack()
         self.canvas = Canvas(frame)
         self.canvas.pack()
-        self.labeltext = StringVar()
-        self.label = Label(frame, text = self.labeltext).pack()
 
 
         
@@ -41,8 +39,14 @@ class GUI(object):
     def clicked1(self):
         input = self.entrytext.get()
         self.process(input)
+        
+        var = StringVar()
+        var.set('Uw cirkels:')
+
+        l = Label(self.master, textvariable = var)
+        l.pack()
         for circle in self.cirkels:
-            self.labeltext.set(self.labeltext.get() +"\n" + circle.to_string())
+            var.set(var.get() +"\n" + circle.to_string())
 
         self.master.update_idletasks()
 

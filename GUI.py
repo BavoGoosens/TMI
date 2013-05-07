@@ -45,6 +45,7 @@ class GUI(object):
 
         l = Label(self.master, textvariable = var)
         l.pack()
+
         for circle in self.cirkels:
             var.set(var.get() +"\n" + circle.to_string())
 

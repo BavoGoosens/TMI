@@ -27,6 +27,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Circle.py" />
+    <Compile Include="Solver.py" />
     <Compile Include="GUI.py" />
     <Compile Include="main.py" />
     <Compile Include="Position.py" />

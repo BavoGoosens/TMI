@@ -2,6 +2,8 @@ from tkinter import *
 from Position import *
 from Circle import *
 import fileinput
+import matplotlib.pyplot as plt
+
 
 class GUI(object):
     """description of class"""
@@ -25,6 +27,7 @@ class GUI(object):
 
     def process(self,path):
         count = 0
+        path = path.replace("\"", "")
         for line in fileinput.input(files = (path)):
             if count == 0:
                  algo = line[0]
@@ -46,9 +49,13 @@ class GUI(object):
         l = Label(self.master, textvariable = var)
         l.pack()
 
+        fig = plt.gcf()
+        
         for circle in self.cirkels:
             var.set(var.get() +"\n" + circle.to_string())
+            fig.gca().add_artist(circle.getPlot())
 
+        plt.show()
         self.master.update_idletasks()
 
         

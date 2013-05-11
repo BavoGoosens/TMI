@@ -1,6 +1,7 @@
 from tkinter import *
 from Position import *
 from Circle import *
+from Solver import *
 import fileinput
 import matplotlib.pyplot as plt
 
@@ -18,6 +19,9 @@ class GUI(object):
         self.buttontext = StringVar()
         self.buttontext.set("Start")
         Button(master, textvariable=self.buttontext, command=self.clicked1).pack()
+        self.buttontext1 = StringVar()
+        self.buttontext1.set("Browse")
+        Button(master, textvariable=self.buttontext1).pack()
         self.canvas = Canvas(frame)
         self.canvas.pack()
 
@@ -28,9 +32,10 @@ class GUI(object):
     def process(self,path):
         count = 0
         path = path.replace("\"", "")
+        algo = 1
         for line in fileinput.input(files = (path)):
             if count == 0:
-                 algo = line[0]
+                 algo = int(line[0])
             else:
                 if len(line) > 2:
                     cir = line.split( ' ' , 2)
@@ -38,6 +43,8 @@ class GUI(object):
                     cir = Circle( pos , float(cir [2]))
                     self.cirkels.append(cir)
             count = count + 1 
+        self.solver = Solver(algo, self.cirkels)
+        self.intersections = self.solver.find_intersect()
 
     def clicked1(self):
         input = self.entrytext.get()

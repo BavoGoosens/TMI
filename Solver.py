@@ -5,17 +5,24 @@ class Solver(object):
         self.algo = algo
         self.cirkels = cirkels
 
-    def find_intersect():
-        if (self.algo == 1):
+    def find_intersect(self):
+        if (self.getAlgo() == 1):
             return self.algo1()
-        if ( self.algo == 2):
+        if ( self.getAlgo() == 2):
             return self.algo2()
         else:
             return self.algo3()
 
+    def getAlgo(self):
+        return self.algo
+
     def algo1(self):
         #do shizlle in O(N^2)
-        todo
+        for circle in self.cirkels:
+            hulp = list(self.cirkels)
+            hulp.remove(circle)
+            for otherCircle in hulp:
+                do
 
     def algo2(self):
         #do shizzle in O(N^2) maar verhoog de effici?ntie met doorlooplijn

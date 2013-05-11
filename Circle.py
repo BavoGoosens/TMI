@@ -4,7 +4,6 @@ class Circle(object):
     """A class used to represent circles"""
     color = 1 
 
-
     def __init__(self, center, radius):
         self.center = center
         self.radius = float(radius)

@@ -32,6 +32,9 @@ class Circle(object):
 
     def getPlot(self):
         return self.plot
+
+    def center_distance(self, other):
+        return self.getCenter().distance(other.getCenter()) 
     
     def to_string( self ):
         return "|" + self.getCenter().to_string() + "|" + str(self.getRadius()) + "|" 

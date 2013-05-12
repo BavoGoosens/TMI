@@ -10,19 +10,33 @@ class GUI(object):
     """description of class"""
 
     def __init__(self,master):
+        # aanmaak list voor de ingelezen cirkels
         self.cirkels = []
-        frame = Frame(master,width=500, height=500)
-        frame.pack()
+
+        # de parent van deze GUI = root
         self.master = master
-        self.entrytext = StringVar()
-        self.entry = Entry(master, textvariable=self.entrytext, width = 50).pack()
+
+        # bottom en top frames om zo de layout wat te verbeteren
+        top = Frame(master)
+        bottom = Frame(master)
+        top.pack(side=TOP)
+        bottom.pack(side=BOTTOM, fill=BOTH, expand=True)
+        
+        # buttons 
         self.buttontext = StringVar()
         self.buttontext.set("Start")
-        Button(master, textvariable=self.buttontext, command=self.clicked1).pack()
+        self.startbutton = Button(self.master, textvariable=self.buttontext, command=self.clicked1)
         self.buttontext1 = StringVar()
         self.buttontext1.set("Browse")
-        Button(master, textvariable=self.buttontext1).pack()
-        self.canvas = Canvas(frame)
+        self.browsebutton = Button(self.master, textvariable=self.buttontext1)
+        self.startbutton.pack(in_= top, side = LEFT)
+        self.browsebutton.pack(in_=top, side = LEFT)
+
+        self.inputframe = Frame(master,width=500, height=500)
+        self.inputframe.pack()
+        self.entrytext = StringVar()
+        self.entry = Entry(self.inputframe, textvariable=self.entrytext, width = 50).pack()
+        self.canvas = Canvas(self.inputframe)
         self.canvas.pack()
 
 

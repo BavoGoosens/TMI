@@ -22,7 +22,15 @@ class Solver(object):
             hulp = list(self.cirkels)
             hulp.remove(circle)
             for otherCircle in hulp:
-                do
+                dis = circle.center_distance(otherCircle)
+                if not ( dis > (circle.getRadius() + otherCircle.getRadius()) or d < abs(cirle.getRadius() - otherCircle.getRadius()) or (dis == 0 and circle.getRadius() == otherCircle.getRadius()):
+
+
+                else:
+                    # geen oplossingen cirkels liggen te ver van elkaar
+                    # geen oplossingen cirkels liggen omvat in elkaar 
+                    # oneindig veel oplossingen samenvallende cirkels
+                    if (
 
     def algo2(self):
         #do shizzle in O(N^2) maar verhoog de effici?ntie met doorlooplijn

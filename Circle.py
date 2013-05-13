@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+from Position import Position
 
 class Circle(object):
     """A class used to represent circles"""
@@ -37,7 +38,15 @@ class Circle(object):
         return self.getCenter().distance(other.getCenter()) 
 
     def intersect(self, otherCircle):
-
+        result = []
+        xverplaatsing = (self.getRadius() - otherCircle.getRadius() + self.center_distance(otherCircle)) / (2*self.center_distance(otherCircle))
+        yverplaatsing = sqrt(self.getRadius()^2 - xverplaatsing^2)
+        if (yverplaatsing == 0):
+            return result.append(Position(self.getCenter().getX() + xverplaatsing, self.getCenter().getY() ))
+        else:
+            result.append(Position(self.getCenter().getX() + xverplaatsing, self.getCenter().getY() + yverplaatsing))
+            result.append(Position(self.getCenter().getX() + xverplaatsing, self.getCenter().getY() - yverplaatsing))
+            return result
     
     def to_string( self ):
         return "|" + self.getCenter().to_string() + "|" + str(self.getRadius()) + "|" 

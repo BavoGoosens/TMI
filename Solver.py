@@ -16,10 +16,19 @@ class Solver(object):
     def getAlgo(self):
         return self.algo
 
+    # alle algos moeten ook de tijd teruggeven
+    # we gebruiken een list met 2 velden 
+    # veld 1 voor een set van de intersects of de string infinity indien oneindig veen oplossingen
+    # veld 2 geeft de tijds complexiteit weer 
+
     def algo1(self):
         #do shizlle in O(N^2)
-        intersections = []
+        result = list()
+        intersections = set()
+        infinity = false
+        time = time()
         for circle in self.cirkels:
+            # kopie van de originele array heeft dus grootte n - 1
             hulp = list(self.cirkels)
             hulp.remove(circle)
             for otherCircle in hulp:
@@ -33,8 +42,16 @@ class Solver(object):
                     # geen oplossingen cirkels liggen omvat in elkaar 
                     # oneindig veel oplossingen samenvallende cirkels
                     if (dis == 0 and circle.getRadius() == otherCircle.getRadius()):
-                        return 'infinity'
-        return intersections
+                        infinity = true
+        time = time() - time
+        if (infinity):
+            result.append('infinity')
+            result.append(time)
+            return result
+        else:
+            result.append(intersections)
+            result.append(time)
+            return result
 
     def algo2(self):
         #do shizzle in O(N^2) maar verhoog de effici?ntie met doorlooplijn

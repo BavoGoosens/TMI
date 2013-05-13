@@ -1,3 +1,7 @@
+import time
+from math import sqrt
+
+
 class Solver(object):
     """executes the alogirithms in order to find the intersections"""
 
@@ -25,25 +29,26 @@ class Solver(object):
         #do shizlle in O(N^2)
         result = list()
         intersections = set()
-        infinity = false
-        time = time()
+        infinity = bool(0)
+        tijd = time.time()
         for circle in self.cirkels:
             # kopie van de originele array heeft dus grootte n - 1
             hulp = list(self.cirkels)
             hulp.remove(circle)
             for otherCircle in hulp:
                 dis = circle.center_distance(otherCircle)
-                if not ( dis > (circle.getRadius() + otherCircle.getRadius())) and not (d < abs(cirle.getRadius() - otherCircle.getRadius())) and not (dis == 0 and circle.getRadius() == otherCircle.getRadius()):
+                if not ( dis > (circle.getRadius() + otherCircle.getRadius())) and not (dis < abs(circle.getRadius() - otherCircle.getRadius())) and not (dis == 0 and circle.getRadius() == otherCircle.getRadius()):
                         intersect = circle.intersect(otherCircle)
-                        if not (intersect in intersections):
-                            intersections.append(intersect)
+                        for inter in intersect :
+                            if not (inter in intersections):
+                                intersections.add(inter)
                 else:
                     # geen oplossingen cirkels liggen te ver van elkaar
                     # geen oplossingen cirkels liggen omvat in elkaar 
                     # oneindig veel oplossingen samenvallende cirkels
                     if (dis == 0 and circle.getRadius() == otherCircle.getRadius()):
-                        infinity = true
-        time = time() - time
+                        infinity = bool(1)
+        tijd = time.time() - tijd
         if (infinity):
             result.append('infinity')
             result.append(time)

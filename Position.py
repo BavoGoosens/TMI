@@ -1,3 +1,5 @@
+from math import sqrt
+
 class Position(object):
     """A class used to represent Position"""
 
@@ -12,7 +14,7 @@ class Position(object):
         return self.y
 
     def distance(self, other):
-        return sqrt((self.getX() - other.getx())^2 - (self.getX() - other.getY())^2)
+        return ((self.getX() - other.getX())**2 + (self.getX() - other.getY())**2)**0.5
     
     def to_string( self ):
         return "(" + str(self.getX()) + ", " + str(self.getY()) + ")"

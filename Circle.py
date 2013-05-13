@@ -1,5 +1,7 @@
 import matplotlib.pyplot as plt
 from Position import Position
+from math import sqrt
+
 
 class Circle(object):
     """A class used to represent circles"""
@@ -40,7 +42,7 @@ class Circle(object):
     def intersect(self, otherCircle):
         result = []
         xverplaatsing = (self.getRadius() - otherCircle.getRadius() + self.center_distance(otherCircle)) / (2*self.center_distance(otherCircle))
-        yverplaatsing = sqrt(self.getRadius()^2 - xverplaatsing^2)
+        yverplaatsing = (self.getRadius()**2 - xverplaatsing**2)**0.5
         if (yverplaatsing == 0):
             return result.append(Position(self.getCenter().getX() + xverplaatsing, self.getCenter().getY() ))
         else:

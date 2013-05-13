@@ -10,6 +10,10 @@ class Circle(object):
     def __init__(self, center, radius):
         self.center = center
         self.radius = float(radius)
+        self.TOP = Position(center.getX(), center.getY() + radius)
+        self.BOTTOM = Position(center.getX(), center.getY() - radius)
+        self.LEFT = Position(center.getX() - radius, center.getY())
+        self.RIGHT = Position(center.getX() + radius, center.getY())
         if (Circle.color % 4 == 0):
             self.plot = plt.Circle((self.getCenter().getX(),self.getCenter().getY()),radius,color='b',fill=False) 
             Circle.color = Circle.color + 1

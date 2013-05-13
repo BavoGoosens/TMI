@@ -62,37 +62,29 @@ class Solver(object):
 
     def algo2(self):
         #do shizzle in O(N^2) maar verhoog de effici?ntie met doorlooplijn
+        result = list()
         intersections = set()
         tijd = time.time()
         circlesXwaarde = dict()
         for circle in self.cirkels:
-            circlesXwaarde[circle.getCenter().getX()-circle.getRadius()] = circle
-        sortedDict = OrderedDict(sorted(circlesXwaarde))
-        keys = circlesXwaarde.keys()
-        count = 0
-        for key in keys:
-            i = count
-            circle = circlesXwaarde[key]
-            otherCircle = circlesXwaarde[keys(i + 1)]
-            while (circle.getCenter().getX() + circle.getRadius() > otherCircle.getCenter().getX() - otherCircle.getRadius()):
-                dis = circle.center_distance(otherCircle)
-                if (otherCircle.getCenter().getX() >= circle.getCenter().getX()):
-                    if not ( dis > (circle.getRadius() + otherCircle.getRadius())) and not (dis < abs(circle.getRadius() - otherCircle.getRadius())) and not (dis == 0 and circle.getRadius() == otherCircle.getRadius()):
+            # sorteren op linkse x value
+            circlesXwaarde[circle.getCenter().getX() - circle.getRadius()] = circle
+        sortedDict = OrderedDict(sorted(circlesXwaarde.items()))
+        hulp = OrderedDict(sortedDict)
+        for circle in sortedDict:
+            hulp.pop(circle.LEFT)
+            for otherCircle in hulp:
+                if (otherCircle.LEFT > circle.RIGHT):
+                    break
+                else:
+                    if (self.can_intersect(circle, otherCircle)):
                         intersect = circle.intersect(otherCircle)
                         for inter in intersect :
                             if not (inter in intersections):
                                 intersections.add(inter)
-                else:
-                # geen oplossingen cirkels liggen te ver van elkaar
-                # geen oplossingen cirkels liggen omvat in elkaar 
-                # oneindig veel oplossingen samenvallende cirkels
-                    if (dis == 0 and circle.getRadius() == otherCircle.getRadius()):
-                         infinity = bool(1)
-                if (len(keys)-1 >= i + 1):
-                    otherCircle = circlesXwaarde[keys(i + 1)]
-
-            if (len(keys)-1 >= count + 2):
-                count += 1
+                    else:
+                        if (dis == 0 and circle.getRadius() == otherCircle.getRadius()):
+                            infinity = bool(1)
         tijd = time.time() - tijd
         if (infinity):
             result.append('infinity')
@@ -102,6 +94,11 @@ class Solver(object):
             result.append(intersections)
             result.append(time)
             return result
+
+    def can_intersect(self, circle, otherCircle):
+        return not ( dis > (circle.getRadius() + otherCircle.getRadius())) and not (dis < abs(circle.getRadius() - otherCircle.getRadius())) and not (dis == 0 and circle.getRadius() == otherCircle.getRadius())
+            
+
     def algo3(self):
         #do shizzle in O((N+S)log2(N))
         todo

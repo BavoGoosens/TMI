@@ -35,6 +35,9 @@ class Circle(object):
 
     def center_distance(self, other):
         return self.getCenter().distance(other.getCenter()) 
+
+    def intersect(self, otherCircle):
+
     
     def to_string( self ):
         return "|" + self.getCenter().to_string() + "|" + str(self.getRadius()) + "|" 

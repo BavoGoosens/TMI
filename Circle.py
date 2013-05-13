@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 from Position import Position
-from math import sqrt
+from numpy import poly1d
 
 
 class Circle(object):
@@ -44,16 +44,41 @@ class Circle(object):
         return self.getCenter().distance(other.getCenter()) 
 
     def intersect(self, otherCircle):
-        result = []
-        xverplaatsing = (self.getRadius() - otherCircle.getRadius() + self.center_distance(otherCircle)) / (2*self.center_distance(otherCircle))
-        yverplaatsing = (self.getRadius()**2 - xverplaatsing**2)**0.5
-        if (yverplaatsing == 0):
-            return result.append(Position(self.getCenter().getX() + xverplaatsing, self.getCenter().getY() ))
-        else:
-            result.append(Position(self.getCenter().getX() + xverplaatsing, self.getCenter().getY() + yverplaatsing))
-            result.append(Position(self.getCenter().getX() + xverplaatsing, self.getCenter().getY() - yverplaatsing))
+        result = set()
+        a = 2*self.getCenter().getX() - 2*otherCircle.getCenter().getX()
+        b = 2*self.getCenter().getY() - 2*otherCircle.getCenter().getY()
+        d = (-1)*(self.getRadius()**2) + otherCircle.getRadius()**2 + self.getCenter().getX()**2 + self.getCenter().getY()**2 - otherCircle.getCenter().getX()**2 - otherCircle.getCenter().getY()**2
+        if not ( a == 0):
+            A = (b/a)**2 + 1
+            B = (2*((d/a)-self.getCenter().getX()) * ((-1)*b/a)) - 2 * self.getCenter().getY()
+            C = (d/a - self.getCenter().getX())**2 + self.getCenter().getY()**2 - self.getRadius()**2
+            D = round((B**2) - (4*A*C),15)
+            ypoints = list()
+            ypoints.append(round((-B + D**0.5)/(2*A),15))
+            ypoints.append(round((-B - D**0.5)/(2*A),15))
+            xpoints = list()
+            for y in ypoints:
+                xpoints.append(d/a - b/a*y)
+            result.add(Position(xpoints.pop(),ypoints.pop()))
+            result.add(Position(xpoints.pop(),ypoints.pop()))
             return result
-    
+        else:
+            y = d/b
+            C = (d**2/b**2 - ((2*self.getCenter().getY()))*(d/b))- self.getRadius()**2 + self.getCenter().getX()**2
+            A = 1 
+            B = -2*self.getCenter().getX()
+            D = round((B**2) - (4*A*C),15)
+            xpoints = list()
+            xpoints.append(round((-B + D**0.5)/(2*A),15))
+            xpoints.append(round((-B - D**0.5)/(2*A),15))
+            result.add(Position(xpoints.pop(),y))
+            result.add(Position(xpoints.pop(),y))
+            return result
+        
+        
+
+
+
     def to_string( self ):
         return "|" + self.getCenter().to_string() + "|" + str(self.getRadius()) + "|" 
 

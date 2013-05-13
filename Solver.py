@@ -71,10 +71,10 @@ class Solver(object):
             circlesXwaarde[circle.getCenter().getX() - circle.getRadius()] = circle
         sortedDict = OrderedDict(sorted(circlesXwaarde.items()))
         hulp = OrderedDict(sortedDict)
-        for circle in sortedDict:
-            hulp.pop(circle.LEFT)
-            for otherCircle in hulp:
-                if (otherCircle.LEFT > circle.RIGHT):
+        for circle in sortedDict.values():
+            hulp.pop(circle.LEFT.getX())
+            for otherCircle in hulp.values():
+                if (otherCircle.LEFT.getX() > circle.RIGHT.getX()):
                     break
                 else:
                     if (self.can_intersect(circle, otherCircle)):
@@ -96,6 +96,7 @@ class Solver(object):
             return result
 
     def can_intersect(self, circle, otherCircle):
+        dis = circle.center_distance(otherCircle)
         return not ( dis > (circle.getRadius() + otherCircle.getRadius())) and not (dis < abs(circle.getRadius() - otherCircle.getRadius())) and not (dis == 0 and circle.getRadius() == otherCircle.getRadius())
             
 

@@ -14,7 +14,7 @@ class Position(object):
         return self.y
 
     def distance(self, other):
-        return ((self.getX() - other.getX())**2 + (self.getX() - other.getY())**2)**0.5
+        return ((self.getX() - other.getX())**2 + (self.getY() - other.getY())**2)**0.5
     
     def to_string( self ):
         return "(" + str(self.getX()) + ", " + str(self.getY()) + ")"

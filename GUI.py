@@ -85,7 +85,7 @@ class GUI(object):
         self.algoLabel = Label(self.master,text = "Het gebruikte algoritme is: " + str(self.algo))
         self.algoLabel.pack(in_= self.rightTOP)
 
-        self.timeLabel = Label(self.master,text = "Het vinden van de snijpunten nam: " + str(self.intersections[1]) + " in beslag")
+        self.timeLabel = Label(self.master,text = "Het vinden van de snijpunten nam: " + str(self.intersections[1]) + " s in beslag")
         self.timeLabel.pack(in_= self.rightTOP)
 
         cirkeltext = Text(self.inputframe)

@@ -105,7 +105,17 @@ class Solver(object):
 
     def algo3(self):
         #do shizzle in O((N+S)log2(N))
-        todo
+        intersections = set()
+        circlesXwaarde = dict()
+        for circle in self.cirkels:
+            # circle nog aanpassen zodat het een wortel wordt.
+            circlesXwaarde[circle.LEFT.getX()] = circle
+            circlesXwaarde[circle.RIGHT.getX()] = circle
+        sortedDict = OrderedDict(sorted(circlesXwaarde.items()))
+        BST = BinarySearchTree()
+
+
+
 
                  
 

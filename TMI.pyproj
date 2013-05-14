@@ -26,6 +26,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="BinarySearchTree.py" />
     <Compile Include="Circle.py" />
     <Compile Include="Solver.py" />
     <Compile Include="GUI.py" />

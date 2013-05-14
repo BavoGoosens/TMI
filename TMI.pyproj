@@ -9,13 +9,15 @@
     <StartupFile>main.py</StartupFile>
     <SearchPath>
     </SearchPath>
-    <WorkingDirectory>.</WorkingDirectory>
+    <WorkingDirectory>
+    </WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>TMI</Name>
     <RootNamespace>PythonApplication2</RootNamespace>
-    <IsWindowsApplication>False</IsWindowsApplication>
+    <IsWindowsApplication>True</IsWindowsApplication>
     <InterpreterId>9a7a9026-48c1-4688-9d5d-e5699d47d074</InterpreterId>
     <InterpreterVersion>3.3</InterpreterVersion>
+    <PublishUrl>C:\Users\Bavo\Desktop</PublishUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>

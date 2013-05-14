@@ -53,11 +53,11 @@ class Solver(object):
         tijd = time.time() - tijd
         if (infinity):
             result.append('infinity')
-            result.append(time)
+            result.append(tijd)
             return result
         else:
             result.append(intersections)
-            result.append(time)
+            result.append(tijd)
             return result
 
     def algo2(self):
@@ -91,11 +91,11 @@ class Solver(object):
         tijd = time.time() - tijd
         if (infinity):
             result.append('infinity')
-            result.append(time)
+            result.append(tijd)
             return result
         else:
             result.append(intersections)
-            result.append(time)
+            result.append(tijd)
             return result
 
     def can_intersect(self, circle, otherCircle):

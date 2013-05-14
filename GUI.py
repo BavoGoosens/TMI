@@ -63,10 +63,10 @@ class GUI(object):
     def process(self,path):
         count = 0
         path = path.replace("\"", "")
-        algo = 1
+        self.algo = 1
         for line in fileinput.input(files = (path)):
             if count == 0:
-                 algo = int(line[0])
+                 self.algo = int(line[0])
             else:
                 if " " in line:
                     cir = line.split( ' ' , 2)
@@ -74,34 +74,37 @@ class GUI(object):
                     cir = Circle( pos , float(cir [2]))
                     self.cirkels.append(cir)
             count = count + 1 
-        self.solver = Solver(algo, self.cirkels)
+        self.solver = Solver(self.algo, self.cirkels)
         self.intersections = self.solver.find_intersect()
 
     def clicked1(self):
 
         self.process(self.entrytext.get())
         self.output(self.entrytext1.get())
-        
-        var = StringVar()
-        var.set('Uw cirkels:')
 
-        cirkelabel = Label(self.inputframe, textvariable = var)
-        cirkelabel.pack()
+        self.algoLabel = Label(self.master,text = "Het gebruikte algoritme is: " + str(self.algo))
+        self.algoLabel.pack(in_= self.rightTOP)
+
+        cirkeltext = Text(self.inputframe)
+        cirkeltext.insert(END,'Uw Cirkels:')
+        cirkeltext.pack()
 
         fig = plt.gcf()
-        
+                
+        count = 1
         for circle in self.cirkels:
-            var.set(var.get() +"\n" + circle.to_string())
+            cirkeltext.insert(END,"\n" +str(count)+" => "+ circle.to_string())
             fig.gca().add_artist(circle.getPlot())
+            count+=1
+
+        intertext = Text(self.outputframe)
+        intertext.insert(END,'De Snijpunten:')
+        intertext.pack()
         
-        var1 = StringVar()
-        var1.set('Snijpunten:')
-
-        interlabel = Label(self.outputframe, textvariable = var1)
-        interlabel.pack()
-
+        count = 1
         for inter in self.intersections[0]:
-            var1.set(var1.get() +"\n" + inter.to_string())
+            intertext.insert(END,"\n" +str(count)+" => "+ inter.to_string())
+            count+=1
 
         plt.show()
         self.master.update_idletasks()

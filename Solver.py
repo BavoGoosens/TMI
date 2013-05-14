@@ -63,6 +63,7 @@ class Solver(object):
     def algo2(self):
         #do shizzle in O(N^2) maar verhoog de effici?ntie met doorlooplijn
         result = list()
+        infinity = bool(0)
         intersections = set()
         tijd = time.time()
         circlesXwaarde = dict()
@@ -74,6 +75,7 @@ class Solver(object):
         for circle in sortedDict.values():
             hulp.pop(circle.LEFT.getX())
             for otherCircle in hulp.values():
+
                 if (otherCircle.LEFT.getX() > circle.RIGHT.getX()):
                     break
                 else:
@@ -83,6 +85,7 @@ class Solver(object):
                             if not (inter in intersections):
                                 intersections.add(inter)
                     else:
+                        dis = circle.center_distance(otherCircle)
                         if (dis == 0 and circle.getRadius() == otherCircle.getRadius()):
                             infinity = bool(1)
         tijd = time.time() - tijd

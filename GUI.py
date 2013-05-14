@@ -17,10 +17,10 @@ class GUI(object):
         self.master = master
 
         # bottom en top frames om zo de layout wat te verbeteren
-        top = Frame(master)
-        bottom = Frame(master)
-        top.pack(side=TOP)
-        bottom.pack(side=BOTTOM, fill=BOTH, expand=True)
+        self.top = Frame(master)
+        self.bottom = Frame(master)
+        self.top.pack(side=TOP)
+        self.bottom.pack(side=BOTTOM, fill=BOTH, expand=True)
         
         # buttons 
         self.buttontext = StringVar()
@@ -29,15 +29,15 @@ class GUI(object):
         self.buttontext1 = StringVar()
         self.buttontext1.set("Browse")
         self.browsebutton = Button(self.master, textvariable=self.buttontext1)
-        self.startbutton.pack(in_= top, side = LEFT)
-        self.browsebutton.pack(in_=top, side = LEFT)
+        self.startbutton.pack(in_= self.top, side = LEFT)
+        self.browsebutton.pack(in_= self.top, side = LEFT)
 
-        self.inputframe = Frame(master,width=500, height=500)
-        self.inputframe.pack()
+        self.inputframe = Frame(master,width=300, height=500)
+        self.inputframe.pack(in_= self.bottom, side = LEFT)
+        self.outputframe = Frame(master,width=300, height=500)
+        self.outputframe.pack(in_= self.bottom, side = LEFT)
         self.entrytext = StringVar()
-        self.entry = Entry(self.inputframe, textvariable=self.entrytext, width = 50).pack()
-        self.canvas = Canvas(self.inputframe)
-        self.canvas.pack()
+        self.entry = Entry(self.top, textvariable=self.entrytext, width = 50).pack()
 
 
         
@@ -51,7 +51,7 @@ class GUI(object):
             if count == 0:
                  algo = int(line[0])
             else:
-                if len(line) > 2:
+                if " " in line:
                     cir = line.split( ' ' , 2)
                     pos = Position( float(cir[0]), float(cir[1]))
                     cir = Circle( pos , float(cir [2]))
@@ -67,14 +67,23 @@ class GUI(object):
         var = StringVar()
         var.set('Uw cirkels:')
 
-        l = Label(self.master, textvariable = var)
-        l.pack()
+        cirkelabel = Label(self.inputframe, textvariable = var)
+        cirkelabel.pack()
 
         fig = plt.gcf()
         
         for circle in self.cirkels:
             var.set(var.get() +"\n" + circle.to_string())
             fig.gca().add_artist(circle.getPlot())
+        
+        var1 = StringVar()
+        var1.set('Snijpunten:')
+
+        interlabel = Label(self.outputframe, textvariable = var1)
+        cirkelabel.pack()
+
+        for inter in self.intersections[0]:
+            var1.set(var1.get() +"\n" + inter.to_string())
 
         plt.show()
         self.master.update_idletasks()

@@ -64,7 +64,7 @@ class Circle(object):
             return result
         else:
             y = d/b
-            C = (d**2/b**2 - ((2*self.getCenter().getY()))*(d/b))- self.getRadius()**2 + self.getCenter().getX()**2
+            C = d**2/b**2 - ((2*self.getCenter().getY())*(d/b))- self.getRadius()**2 + self.getCenter().getX()**2 + self.getCenter().getY()**2
             A = 1 
             B = -2*self.getCenter().getX()
             D = round((B**2) - (4*A*C),15)
@@ -75,10 +75,7 @@ class Circle(object):
             result.add(Position(xpoints.pop(),y))
             return result
         
-        
-
-
-
+    
     def to_string( self ):
         return "|" + self.getCenter().to_string() + "|" + str(self.getRadius()) + "|" 
 

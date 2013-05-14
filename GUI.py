@@ -58,7 +58,18 @@ class GUI(object):
         self.outputEntry = Entry(master, textvariable=self.entrytext1, width = 50).pack(in_= self.leftTOP)
 
     def output(self, path):
-         print (path)
+         if len(path) > 4 :
+             file =  open(path,'w')
+             if (self.algo == 3):
+                 file.write("Dit Algoritme is niet ge"+'\i'+"mplementeerd")
+                 file.close()
+             else:
+                 for inter in self.intersections[0]:
+                     file.write(inter.to_string()+"\n")
+                 file.write("\n" )
+                 file.write("uitvoeringstijd: " + str(self.intersections[1]))
+                 file.close()
+
 
     def process(self,path):
         count = 0

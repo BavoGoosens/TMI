@@ -4,7 +4,7 @@ from Circle import *
 from Solver import *
 import fileinput
 import matplotlib.pyplot as plt
-
+from tkinter.filedialog import askopenfilename
 
 class GUI(object):
     """description of class"""
@@ -29,7 +29,7 @@ class GUI(object):
         self.rightTOP.pack(side=RIGHT,fill=BOTH, expand=True)
 
         # uitleg
-        w = Label(self.rightTOP, text="Enter the path to to input file in the first field"+"\n" +"Enter the path to the output file in the second field" + "\n" + "push the START button to start")
+        w = Label(self.rightTOP, text="Enter the path to to input file in the first field or use the browse input button"+"\n" +"Enter the path to the output file in the second field or use the browse output button" + "\n" + "push the START button to start processing")
         w.pack()
 
         # buttons 
@@ -38,11 +38,16 @@ class GUI(object):
         self.startbutton = Button(master, textvariable=self.buttontext, command=self.clicked1,height = 2)
         
         self.buttontext1 = StringVar()
-        self.buttontext1.set("Browse")
-        self.browsebutton = Button(master, textvariable=self.buttontext1, height = 1)
+        self.buttontext1.set("Browse input")
+        self.browsebutton = Button(master, textvariable=self.buttontext1,command=self.clicked2, height = 1)
+
+        self.buttontext2 = StringVar()
+        self.buttontext2.set("Browse output")
+        self.browsebutton1 = Button(master, textvariable=self.buttontext2,command=self.clicked3, height = 1)
         
         self.startbutton.pack(in_= self.rightTOP)
-        self.browsebutton.pack(in_= self.leftTOP, side = RIGHT)
+        self.browsebutton.pack(in_= self.leftTOP)
+        self.browsebutton1.pack(in_=self.leftTOP)
 
         self.inputframe = Frame(master,width=500, height=500, bd=1,relief=SUNKEN,padx=1,pady=1,bg="blue")
         self.inputframe.pack(in_= self.bottom, side = LEFT)
@@ -61,13 +66,13 @@ class GUI(object):
          if len(path) > 4 :
              file =  open(path,'w')
              if (self.algo == 3):
-                 file.write("Dit Algoritme is niet ge"+'\i'+"mplementeerd")
+                 file.write("Dit Algoritme is niet ge"+"\i"+"mplementeerd")
                  file.close()
              else:
                  for inter in self.intersections[0]:
                      file.write(inter.to_string()+"\n")
                  file.write("\n" )
-                 file.write("uitvoeringstijd: " + str(self.intersections[1]))
+                 file.write("uitvoeringstijd in ms: " + str(self.intersections[1]))
                  file.close()
 
 
@@ -87,16 +92,16 @@ class GUI(object):
             count = count + 1 
         self.solver = Solver(self.algo, self.cirkels)
         self.intersections = self.solver.find_intersect()
+        self.intersections[1] = self.intersections[1]*1000
 
     def clicked1(self):
-
         self.process(self.entrytext.get())
         self.output(self.entrytext1.get())
 
         self.algoLabel = Label(self.master,text = "Het gebruikte algoritme is: " + str(self.algo))
         self.algoLabel.pack(in_= self.rightTOP)
 
-        self.timeLabel = Label(self.master,text = "Het vinden van de snijpunten nam: " + str(self.intersections[1]) + " s in beslag")
+        self.timeLabel = Label(self.master,text = "Het vinden van de snijpunten nam: " + str(self.intersections[1]) + " ms in beslag")
         self.timeLabel.pack(in_= self.rightTOP)
 
         cirkeltext = Text(self.inputframe)
@@ -119,11 +124,16 @@ class GUI(object):
         for inter in self.intersections[0]:
             intertext.insert(END,"\n" +str(count)+" => "+ inter.to_string())
             count+=1
-
+        self.cirkels.clear()
+        self.intersections.clear()
         plt.show()
         self.master.update_idletasks()
 
-        
+    def clicked2(self):
+        self.entrytext.set(askopenfilename())
+    
+    def clicked3(self):
+        self.entrytext1.set(askopenfilename())
 
     def button_click(self, e):
         pass

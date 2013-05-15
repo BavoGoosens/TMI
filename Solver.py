@@ -15,8 +15,8 @@ class Solver(object):
             return self.algo1()
         if ( self.getAlgo() == 2):
           return self.algo2()
-        else:
-            return self.algo3()
+        #else:
+            #return self.algo3()
 
     def getAlgo(self):
         return self.algo
